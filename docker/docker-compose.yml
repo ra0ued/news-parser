@@ -1,0 +1,29 @@
+version: "2"
+
+services:
+    #main services
+
+    bbc_news:
+      build:
+        context: ../
+        dockerfile: Dockerfile
+      image: bbc-news:latest
+      volumes:
+        - ./../:/var/www/html
+        - ./default.conf:/etc/nginx/sites-available/default.conf
+      ports:
+        - "80:80"
+      links:
+        - db
+      hostname: bbc_news
+      domainname: bbc_news
+
+    db:
+      image: mysql:latest
+      expose:
+        - "3306"
+      ports:
+        - "3306:3306"
+      hostname: db
+      domainname: db
+      env_file: db.env
