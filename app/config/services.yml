@@ -1,9 +1,12 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/service_container.html
 parameters:
-    #parameter_name: value
+    key: '%consumer_key%'
+    secret: '%consumer_secret%'
+    token: '%oauth_token%'
+    token_secret: '%oauth_token_secret%'
 
 services:
-    #service_name:
-    #    class: AppBundle\Directory\ClassName
-    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    app.news_getter:
+        class: AppBundle\Service\NewsGetter
+        arguments: ['%key%', '%secret%', '%token%', '%token_secret%', '@service_container']

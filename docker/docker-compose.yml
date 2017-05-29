@@ -24,6 +24,8 @@ services:
         - "3306"
       ports:
         - "3306:3306"
+      volumes:
+        - ./my.cnf:/etc/mysql/my.cnf
       hostname: db
       domainname: db
       env_file: db.env
