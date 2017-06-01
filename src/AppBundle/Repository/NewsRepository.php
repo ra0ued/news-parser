@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
-
 /**
  * NewsRepository
  *
@@ -15,7 +14,11 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class NewsRepository extends EntityRepository
 {
-    public function getAllNews($currentPage = 1)
+    /**
+     * @param int $currentPage
+     * @return Paginator
+     */
+    public function getAllNews($currentPage = 1): Paginator
     {
         $query = $this->getEntityManager()
             ->createQueryBuilder()
@@ -29,7 +32,11 @@ class NewsRepository extends EntityRepository
         return $paginator;
     }
 
-    public function findByHashtag(string $hashtag = '')
+    /**
+     * @param string $hashtag
+     * @return array
+     */
+    public function findByHashtag(string $hashtag = ''): array
     {
         $result = $this->getEntityManager()
             ->createQueryBuilder()
@@ -46,7 +53,11 @@ class NewsRepository extends EntityRepository
         return $result;
     }
 
-    public function findByText(string $keyword = '')
+    /**
+     * @param string $keyword
+     * @return array
+     */
+    public function findByText(string $keyword = ''): array
     {
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
@@ -67,7 +78,13 @@ class NewsRepository extends EntityRepository
         return $result;
     }
 
-    public function paginate($dql, $page = 1, $limit = 20)
+    /**
+     * @param $dql
+     * @param int $page
+     * @param int $limit
+     * @return Paginator
+     */
+    public function paginate($dql, $page = 1, $limit = 20): Paginator
     {
         $paginator = new Paginator($dql);
 

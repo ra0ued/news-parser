@@ -12,7 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class HashtagRepository extends EntityRepository
 {
-    public function findPopular(int $count = 10)
+    /**
+     * @param int $count
+     * @return array
+     */
+    public function findPopular(int $count = 10): array
     {
         $timeAgo = new \DateTime('now -20days');
         $result = $this->getEntityManager()

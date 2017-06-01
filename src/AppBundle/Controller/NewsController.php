@@ -18,7 +18,11 @@ class NewsController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $page = $request->get('page') ?: 1;
+        $page = $request->get('page');
+        if(!ctype_digit($page) || empty($page)) {
+            $page = 1;
+        }
+
         $news = $this->getDoctrine()
             ->getRepository('AppBundle:News')
             ->getAllNews($page);
