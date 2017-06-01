@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Новости по хештегу #{{ tag }}{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div class="col-xs-12">
+                <h1>Новости по хэштегу #{{ tag }}</h1>
+                <a href="{{ path('index') }}">Вернуться на главную</a>
+            </div>
+
+            <div class="col-xs-12 col-md-8">
+                {% for item in news %}
+                    <p>
+                        {{ item.text }}<br>
+                        {{ item.time|date("m/d/Y") }},
+                        {{ item.time|date("H:i") }}
+                    </p>
+                {% endfor %}
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+                {% for hashtag in hashtags %}
+                    <p>
+                        <a href="{{ hashtag.text }}">#{{ hashtag.text }}</a><br>
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

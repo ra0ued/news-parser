@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Русская служба BBC{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div class="col-xs-12">
+                <h1><a href="{{ path('index') }}">Новости BBC</a></h1>
+            </div>
+
+            <div class="col-xs-12 col-md-8">
+
+                <div>
+                    {{ form_start(form, {'method': 'POST', attr: {'class': 'form-inline'}}) }}
+                    <div class="form-group">
+                        {{ form_widget(form.keyword) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_widget(form.search) }}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <br>
+
+                {% for item in news %}
+                    <p>
+                        {{ item.text }}<br>
+                        {{ item.time|date("m/d/Y") }},
+                        {{ item.time|date("H:i") }}
+                    </p>
+                {% endfor %}
+
+                {% if maxPages > 1 %}
+                    <ul class="pagination pagination-sm">
+                        {# `«` arrow  #}
+                        <li {{ thisPage == 1 ? 'class="disabled"' }}>
+                            <a href="{{ path('index', {page: thisPage-1 < 1 ? 1 : thisPage-1}) }}">«</a>
+                        </li>
+
+                        {# Render each page number #}
+                        {% for i in 1..maxPages %}
+                            <li {{ thisPage == i ? 'class="active"' }}>
+                                <a href="{{ path('index', {page: i}) }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+
+                        {# `»` arrow #}
+                        <li {{ thisPage == maxPages ? 'class="disabled"' }}>
+                            <a href="{{ path('index', {page: thisPage+1 <= maxPages ? thisPage+1 : thisPage}) }}">»</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="col-xs-6 col-md-4">
+                {% for hashtag in hashtags %}
+                    <p>
+                        <a href="{{ hashtag.text }}">#{{ hashtag.text }}</a><br>
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
