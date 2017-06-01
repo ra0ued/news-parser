@@ -45,7 +45,7 @@ class NewsController extends Controller
         }
 
         $limit = 20;
-        $maxPages = ceil($news->count() / $limit);
+        $maxPages = ceil(count($news) / $limit);
         $thisPage = $page;
 
         return $this->render('news/index.html.twig', [
