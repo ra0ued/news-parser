@@ -11,9 +11,10 @@ php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 php composer.phar install
+chmod +x update.sh
 ```
 
-Do not forget fill parameters properly, especially twitter API credentials, also set proper mode to app/logs and app/cache directories.
+Do not forget fill parameters properly, especially twitter API credentials, also set proper rights/mode to app/logs and app/cache directories.
 
 Prepare database:
 
