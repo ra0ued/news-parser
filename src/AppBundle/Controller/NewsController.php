@@ -12,17 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 class NewsController extends Controller
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/{page}", name="index", requirements={"page": "\d+"})
+     * @param int $page
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function indexAction(int $page = 1, Request $request)
     {
-        $page = $request->get('page');
-        if(!ctype_digit($page) || empty($page)) {
-            $page = 1;
-        }
-
         $news = $this->getDoctrine()
             ->getRepository('AppBundle:News')
             ->getAllNews($page);
