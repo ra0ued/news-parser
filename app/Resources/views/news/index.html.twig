@@ -25,9 +25,9 @@
 
                 {% for item in news %}
                     <p>
-                        {{ item.text }}<br>
-                        {{ item.time|date("m/d/Y") }},
-                        {{ item.time|date("H:i") }}
+                        {{ item.text | converturls }}<br>
+                        {{ item.time | date("m/d/Y") }},
+                        {{ item.time | date("H:i") }}
                     </p>
                 {% endfor %}
 
@@ -51,6 +51,14 @@
                         </li>
                     </ul>
                 {% endif %}
+
+                {#{% include 'pagination.html.twig' with {
+                currentFilters: { myFilter: filtervariables },
+                currentPage: page,
+                paginationPath: "index",
+                lastPage: totalPages,
+                showAlwaysFirstAndLast: true
+                } only %}#}
             </div>
 
             <div class="col-xs-6 col-md-4">

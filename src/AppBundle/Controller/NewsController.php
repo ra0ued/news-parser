@@ -2,7 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Hashtag;
+use AppBundle\Entity\News;
 use AppBundle\Entity\SearchModel;
+use AppBundle\Repository\HashtagRepository;
+use AppBundle\Repository\NewsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
@@ -19,13 +23,13 @@ class NewsController extends Controller
      */
     public function indexAction(int $page = 1, Request $request)
     {
-        $news = $this->getDoctrine()
-            ->getRepository('AppBundle:News')
-            ->getAllNews($page);
+        /** @var NewsRepository $newsRepository */
+        $newsRepository = $this->getDoctrine()->getRepository(News::class);
+        $news = $newsRepository->getAllNews($page);
 
-        $hashtags = $this->getDoctrine()
-            ->getRepository('AppBundle:Hashtag')
-            ->findPopular();
+        /** @var HashtagRepository $hashtagsRepository */
+        $hashtagsRepository = $this->getDoctrine()->getRepository(Hashtag::class);
+        $hashtags = $hashtagsRepository->findPopular();
 
         $search = new SearchModel();
 
@@ -39,9 +43,7 @@ class NewsController extends Controller
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchModel = $searchForm->getData();
 
-            $news = $this->getDoctrine()
-                ->getRepository('AppBundle:News')
-                ->findByText($searchModel->keyword);
+            $news = $newsRepository->findByText($searchModel->keyword);
         }
 
         $limit = 20;
@@ -58,15 +60,15 @@ class NewsController extends Controller
     }
 
     /**
-     * @Route("/{tag}", name="news")
+     * @Route("/{tag}", name="news", requirements={"page": "\w+\d+"})
      * @param $tag
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function newsAction($tag)
     {
-        $news = $this->getDoctrine()
-            ->getRepository('AppBundle:News')
-            ->findByHashtag($tag);
+        /** @var NewsRepository $newsRepository */
+        $newsRepository = $this->getDoctrine()->getRepository(News::class);
+        $news = $newsRepository->findByHashtag($tag);
 
         return $this->render('news/hashtag.html.twig', [
             'news' => $news,

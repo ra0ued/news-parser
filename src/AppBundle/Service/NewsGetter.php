@@ -49,7 +49,6 @@ class NewsGetter
                 $news->setTime($time);
                 $news->setText($tweet->text);
 
-
                 if (!empty($tweet->entities->hashtags)) {
                     $hashtags = $tweet->entities->hashtags;
                     foreach ($hashtags as $hashtag) {

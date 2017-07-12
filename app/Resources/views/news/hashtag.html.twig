@@ -13,9 +13,9 @@
             <div class="col-xs-12 col-md-8">
                 {% for item in news %}
                     <p>
-                        {{ item.text }}<br>
-                        {{ item.time|date("m/d/Y") }},
-                        {{ item.time|date("H:i") }}
+                        {{ item.text | converturls}}<br>
+                        {{ item.time | date("m/d/Y") }},
+                        {{ item.time | date("H:i") }}
                     </p>
                 {% endfor %}
             </div>
