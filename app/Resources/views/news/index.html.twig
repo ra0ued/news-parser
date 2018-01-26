@@ -22,6 +22,7 @@
                     {{ form_end(form) }}
                 </div>
                 <br>
+                {% if news %}
 
                 {% for item in news %}
                     <p>
@@ -60,14 +61,17 @@
                 showAlwaysFirstAndLast: true
                 } only %}#}
             </div>
+            {% endif %}
 
-            <div class="col-xs-6 col-md-4">
-                {% for hashtag in hashtags %}
-                    <p>
-                        <a href="{{ hashtag.text }}">#{{ hashtag.text }}</a><br>
-                    </p>
-                {% endfor %}
-            </div>
+            {% if hashtags %}
+                <div class="col-xs-6 col-md-4">
+                    {% for hashtag in hashtags %}
+                        <p>
+                            <a href="{{ hashtag.text }}">#{{ hashtag.text }}</a><br>
+                        </p>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

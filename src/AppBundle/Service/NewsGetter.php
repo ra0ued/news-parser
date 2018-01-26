@@ -33,16 +33,15 @@ class NewsGetter
 
     public function updateNews()
     {
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->container->get('doctrine.orm.default_entity_manager');
         $tweets = $this->getTweet(10);
 
         foreach ($tweets as $tweet) {
-            /** @var EntityManager $entityManager */
-            $entityManager = $this->container->get('doctrine.orm.default_entity_manager');
-
-            $news = $entityManager->getRepository('AppBundle:News')
+            $news = $entityManager->getRepository(News::class)
                 ->findOneBy(['tweetId' => $tweet->id_str]);
 
-            if(!$news) {
+            if (!$news) {
                 $news = new News();
                 $news->setTweetId($tweet->id_str);
                 $time = new \DateTime($tweet->created_at);
@@ -52,8 +51,7 @@ class NewsGetter
                 if (!empty($tweet->entities->hashtags)) {
                     $hashtags = $tweet->entities->hashtags;
                     foreach ($hashtags as $hashtag) {
-
-                        $tag = $entityManager->getRepository('AppBundle:Hashtag')
+                        $tag = $entityManager->getRepository(Hashtag::class)
                             ->findOneBy(['text' => $hashtag->text]);
 
                         if (!$tag) {
@@ -69,8 +67,9 @@ class NewsGetter
                 }
 
                 $entityManager->persist($news);
-                $entityManager->flush();
             }
         }
+
+        $entityManager->flush();
     }
 }

@@ -30,9 +30,7 @@ class NewsController extends Controller
         /** @var HashtagRepository $hashtagsRepository */
         $hashtagsRepository = $this->getDoctrine()->getRepository(Hashtag::class);
         $hashtags = $hashtagsRepository->findPopular();
-
         $search = new SearchModel();
-
         $searchForm = $this->createFormBuilder($search)
             ->add('keyword', SearchType::class)
             ->add('search', SubmitType::class, ['label' => 'Поиск'])
@@ -42,7 +40,6 @@ class NewsController extends Controller
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $searchModel = $searchForm->getData();
-
             $news = $newsRepository->findByText($searchModel->keyword);
         }
 
