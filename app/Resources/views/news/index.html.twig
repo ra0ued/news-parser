@@ -32,34 +32,12 @@
                     </p>
                 {% endfor %}
 
-                {% if maxPages > 1 %}
-                    <ul class="pagination pagination-sm">
-                        {# `«` arrow  #}
-                        <li {{ thisPage == 1 ? 'class="disabled"' }}>
-                            <a href="{{ path('index', {page: thisPage-1 < 1 ? 1 : thisPage-1}) }}">«</a>
-                        </li>
-
-                        {# Render each page number #}
-                        {% for i in 1..maxPages %}
-                            <li {{ thisPage == i ? 'class="active"' }}>
-                                <a href="{{ path('index', {page: i}) }}">{{ i }}</a>
-                            </li>
-                        {% endfor %}
-
-                        {# `»` arrow #}
-                        <li {{ thisPage == maxPages ? 'class="disabled"' }}>
-                            <a href="{{ path('index', {page: thisPage+1 <= maxPages ? thisPage+1 : thisPage}) }}">»</a>
-                        </li>
-                    </ul>
-                {% endif %}
-
-                {#{% include 'pagination.html.twig' with {
-                currentFilters: { myFilter: filtervariables },
-                currentPage: page,
+                {% include 'news/pagination.html.twig' with {
+                currentPage: thisPage,
                 paginationPath: "index",
-                lastPage: totalPages,
+                lastPage: maxPages,
                 showAlwaysFirstAndLast: true
-                } only %}#}
+                } only %}
             </div>
             {% endif %}
 
