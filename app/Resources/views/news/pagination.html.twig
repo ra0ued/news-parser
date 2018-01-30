@@ -31,7 +31,9 @@ Got this code here - https://gist.github.com/SimonSimCity/4594748
                 {% endfor %}
 
                 {% if extremePagesLimit + 1 < currentPage - nearbyPagesLimit %}
-                    <li class="sep-dots">...</li>
+                    <li>
+                        <span class="sep-dots">...</span>
+                    </li>
                 {% endif %}
 
                 {% for i in range(currentPage-nearbyPagesLimit, currentPage-1) if ( i > 0 ) %}
@@ -56,7 +58,9 @@ Got this code here - https://gist.github.com/SimonSimCity/4594748
                 {% endfor %}
 
                 {% if  (lastPage - extremePagesLimit) > (currentPage + nearbyPagesLimit) %}
-                    <li class="sep-dots">...</li>
+                    <li>
+                        <span class="sep-dots">...</span>
+                    </li>
                 {% endif %}
 
                 {% for i in range(lastPage - extremePagesLimit+1, lastPage) if ( i > currentPage + nearbyPagesLimit ) %}
