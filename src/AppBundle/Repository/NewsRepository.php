@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\News;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -23,7 +24,7 @@ class NewsRepository extends EntityRepository
         $query = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('n')
-            ->from('AppBundle:News', 'n')
+            ->from(News::class, 'n')
             ->orderBy('n.time', 'DESC')
             ->getQuery();
 
@@ -41,7 +42,7 @@ class NewsRepository extends EntityRepository
         $result = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('n')
-            ->from('AppBundle:News', 'n')
+            ->from(News::class, 'n')
             ->leftJoin('n.hashtags', 'h')
             ->where('h.text = :hashtag')
             ->orderBy('n.time', 'DESC')
@@ -64,7 +65,7 @@ class NewsRepository extends EntityRepository
 
         $result = $qb
             ->select('n')
-            ->from('AppBundle:News', 'n')
+            ->from(News::class, 'n')
             ->leftJoin('n.hashtags', 'h')
             ->where($qb->expr()->orX(
                 $qb->expr()->like('n.text', ':keyword'),

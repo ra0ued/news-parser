@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Hashtag;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -22,7 +23,7 @@ class HashtagRepository extends EntityRepository
         $result = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('h')
-            ->from('AppBundle:Hashtag', 'h')
+            ->from(Hashtag::class, 'h')
             ->leftJoin('h.news', 'n')
             ->where('n.time > :time')
             ->orderBy('n.time', 'DESC')

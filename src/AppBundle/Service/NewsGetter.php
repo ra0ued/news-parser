@@ -26,11 +26,19 @@ class NewsGetter
         $this->container = $container;
     }
 
+    /**
+     * @param int $count
+     * @param string $username
+     * @return array|object
+     */
     public function getTweet(int $count = 1, string $username = 'bbcrussian')
     {
         return $this->connection->get("statuses/user_timeline", ["screen_name" => $username, "count" => $count, "exclude_replies" => true]);
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function updateNews()
     {
         /** @var EntityManager $entityManager */
